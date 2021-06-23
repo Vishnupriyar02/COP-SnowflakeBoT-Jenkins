@@ -16,7 +16,9 @@ pipeline {
         stage('Build') {
             steps {
                 git branch: 'main', url: 'https://github.com/Vishnupriyar02/COP-SnowflakeBoT-Jenkins.git'
+                sh('''
                 exec_sql=`snowsql --dbname ${database} --schemaname ${schema} --config '''+"${snowsql_config}"+''' -f 'select * from Agents' --connection sf_conn  2>&1`
+                ''')
             }
         }
         stage('Test') {
